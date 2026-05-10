@@ -1,28 +1,23 @@
-# SETUP: perception-functional (Kit + Datomic Local + Reagent + microk8s, NodePort)
+sudo apt-get update
 
-You are an autonomous coding agent running on an Ubuntu 24.04 app server.
+# Java (Temurin or OpenJDK 17+)
+sudo apt-get install -y openjdk-17-jdk curl git unzip
 
-Your goal is to:
+# Clojure CLI
+curl -L https://github.com/clojure/brew-install/releases/latest/download/linux-install.sh \
+  -o /tmp/clojure-install.sh
+chmod +x /tmp/clojure-install.sh
+sudo /tmp/clojure-install.sh
 
-1. Install prerequisites (Java, Clojure, git, microk8s, Docker).
-2. Scaffold a **Kit**-based Clojure app as a **monorepo**.
-3. Add **Datomic Local** integration.
-4. Add a **Reagent** frontend for the 5 swimlanes of life.
-5. Containerize the app with Docker.
-6. Deploy it to **microk8s** using a **NodePort** service.
+# microk8s
+sudo snap install microk8s --classic
+sudo usermod -aG microk8s $USER
+sudo chown -f -R $USER ~/.kube || true
 
-Work in the repository:
+# Enable basic microk8s addons
+microk8s status --wait-ready
+microk8s enable dns storage
 
-`https://github.com/quaternaryps/perception-functional`
-
-Clone it locally before starting.
-
----
-
-## Phase 0 – Clone repo
-
-```bash
-cd ~
-git clone https://github.com/quaternaryps/perception-functional.git
-cd perception-functional
-
+# Docker (for building images)
+sudo apt-get install -y docker.io
+sudo usermod -aG docker $USER
