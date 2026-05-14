@@ -1,2 +1,2 @@
 # perception-functional
-A venture into functional programming &amp; database using Clojure and Datomic
+This public repository is the kickoff to my journey with Clojure and Datomic, using agentic code generation as the basis for an accountability-buddy managed engagement test.
